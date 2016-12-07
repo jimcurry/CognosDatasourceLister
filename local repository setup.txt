@@ -1,0 +1,22 @@
+Create a repository folder under your project
+${project.basedir}/src/main/resources/repo
+
+Install you jars, don't run in power shell
+mvn install:install-file -Dfile=/temp/cognos-axis.jar -DgroupId=cognos.org.apache -DartifactId=cognos-axis -Dversion=1.4 -Dpackaging=jar -DlocalRepositoryPath=/Users/cognos_service/IdeaProjects/cognosdatasourcelist/src/main/resources/repo
+
+Add the repo and definitions to the pom.xml
+
+<repositories>
+    <repository>
+        <id>project-repo</id>
+        <url>file://${project.basedir}/src/main/resources/repo</url>
+    </repository>
+</repositories>
+
+<dependencies>
+    <dependency>
+        <groupId>[GROUP]</groupId>
+        <artifactId>[ARTIFACT]</artifactId>
+        <version>[VERS]</version>
+    </dependency>
+</dependencies>

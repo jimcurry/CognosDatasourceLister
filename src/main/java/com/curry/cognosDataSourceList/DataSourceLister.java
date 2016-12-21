@@ -13,7 +13,7 @@ import java.rmi.RemoteException;
 import java.util.HashSet;
 
 /**
- * Created by cognos_service on 11/18/2016.
+ * Created by Jim on 11/18/2016.
  */
 public class DataSourceLister {
 	private static Logon sessionLogon;
@@ -92,7 +92,7 @@ public class DataSourceLister {
 		settingsDisplay.listConnections();
 	}
 
-	public void listConnections() {
+	private void listConnections() {
 		//get location to put output file
 		final JFileChooser fileChooser = new JFileChooser();
 		fileChooser.setDialogTitle("Choose where to save list of data sources");
@@ -150,6 +150,12 @@ public class DataSourceLister {
 			}
 
 			printWriter.close();
+			JOptionPane.showMessageDialog(
+					null,
+					"Done",
+					"Finished",
+					JOptionPane.INFORMATION_MESSAGE);
+
 		}
 		catch (RemoteException e) {
 			e.printStackTrace();
@@ -160,7 +166,7 @@ public class DataSourceLister {
 
 	}
 
-	public String getConnectionTypeFromConnectionString(String connectionString) {
+	private String getConnectionTypeFromConnectionString(String connectionString) {
 		StringBuilder connectionType = new StringBuilder();
 
 		//Microsoft SQL Server (Native Client
@@ -192,6 +198,10 @@ public class DataSourceLister {
 		//MS OLEDB
 		else if (connectionString.toUpperCase().contains("INFO_TYPE=MS;PROVIDER=SQLOLEDB")) {
 			connectionType.append("MS OLEDB");
+		}
+		//TM1
+		else if (connectionString.toUpperCase().contains("LOCAL;TM")) {
+			connectionType.append("TM1");
 		}
 		//Unknown
 		else {

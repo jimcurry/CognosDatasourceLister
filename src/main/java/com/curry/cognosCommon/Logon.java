@@ -188,6 +188,7 @@ public class Logon implements ActionListener
 		loginDialog.pack();
 		loginDialog.setResizable(false);
 		loginDialog.setModal(true);
+		loginDialog.setLocationRelativeTo(null);
 		loginDialog.setVisible(true);
 
 		// Process the user input

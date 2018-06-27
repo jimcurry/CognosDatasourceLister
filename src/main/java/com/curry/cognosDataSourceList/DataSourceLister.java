@@ -136,7 +136,7 @@ public class DataSourceLister {
 					String connectionType = getConnectionTypeFromConnectionString(dataSourceConnectionString);
 
 					printWriter.println(dataSourceName + "\t"
-							  +  dataSourceConnectionName + "\t"
+							  + dataSourceConnectionName + "\t"
 							  + connectionType + "\t"
 							  + dataSourceConnectionString + "\t"
 					);			

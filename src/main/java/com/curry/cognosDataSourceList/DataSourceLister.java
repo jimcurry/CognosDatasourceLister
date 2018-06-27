@@ -6,7 +6,6 @@ import com.curry.cognosCommon.Logon;
 
 import javax.swing.*;
 import javax.swing.filechooser.FileNameExtensionFilter;
-import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.PrintWriter;
 import java.rmi.RemoteException;
@@ -17,7 +16,6 @@ import java.util.HashSet;
  */
 public class DataSourceLister {
 	private static Logon sessionLogon;
-	private CRNConnect connect;
 	private CRNConnect connection = new CRNConnect();
 
 	public DataSourceLister() {
@@ -115,7 +113,8 @@ public class DataSourceLister {
 			HashSet<String> connectionTypeSummary = new HashSet<String>();
 
 			PrintWriter printWriter = new PrintWriter(fileChooser.getSelectedFile());
-			printWriter.println("Connection Name\t"
+			printWriter.println("Data source Name\t"
+					  + "Connection Name\t"
 					  + "Connection Type\t"
 					  + "Connection String"
 			);
@@ -136,11 +135,11 @@ public class DataSourceLister {
 					String dataSourceConnectionString = dataSourceConnection.getConnectionString().getValue();
 					String connectionType = getConnectionTypeFromConnectionString(dataSourceConnectionString);
 
-					printWriter.println(dataSourceConnectionName + "\t"
+					printWriter.println(dataSourceName + "\t"
+							  + dataSourceConnectionName + "\t"
 							  + connectionType + "\t"
 							  + dataSourceConnectionString + "\t"
-					);
-
+					);			
 					connectionTypeSummary.add(connectionType);
 				}
 			}
@@ -189,11 +188,11 @@ public class DataSourceLister {
 		}
 		//SAP BW
 		else if (connectionString.toUpperCase().contains("LOCAL;BW")) {
-			connectionType.append("ODBC");
+			connectionType.append("SAP BW");
 		}
 		//SAP ECC
 		else if (connectionString.toUpperCase().contains("LOCAL;ERP-SAP")) {
-			connectionType.append("ODBC");
+			connectionType.append("SAP ERP");
 		}
 		//MS OLEDB
 		else if (connectionString.toUpperCase().contains("INFO_TYPE=MS;PROVIDER=SQLOLEDB")) {
@@ -202,6 +201,10 @@ public class DataSourceLister {
 		//TM1
 		else if (connectionString.toUpperCase().contains("LOCAL;TM")) {
 			connectionType.append("TM1");
+		}
+		//Power Cube
+		else if (connectionString.toUpperCase().contains("LOCAL;PC")) {
+			connectionType.append("IBM Cognos PowerCube");
 		}
 		//Unknown
 		else {
